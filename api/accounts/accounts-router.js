@@ -27,10 +27,10 @@ router.post('/', md.checkAccountPayload, md.checkAccountNameUnique, async (req, 
   }
 })
 
-router.put('/:id', md.checkAccountId, md.checkAccountNameUnique, md.checkAccountPayload, (req, res, next) => {
-  // DO YOUR MAGIC
+router.put('/:id', md.checkAccountId, md.checkAccountNameUnique, md.checkAccountPayload, async (req, res, next) => {
   try {
-    res.json('update account')
+    const updated = await Account.updateById(req.params.id, req.body)
+    res.json(updated)
   } catch (err) {
     next(err)
   }
